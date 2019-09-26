@@ -1,0 +1,13 @@
+#!/bin/sh
+# Previous pre-commit hook that only runs on staged changes is here:
+# https://gist.github.com/wasinsandiego/d7f77fbf3f2b5f4205d2a05f5184fac2
+# Had some odd behaviors like conflicts on stash apply that need to be worked out.
+#
+
+echo "running lint and tests..."
+# Test prospective commit
+yarn lint && yarn test:cover
+RESULT=$?
+
+[ $RESULT -ne 0 ] && { echo "Commit aborted. Linter or tests didn\'t pass. Fix things and try again."; exit 1; }
+exit 0

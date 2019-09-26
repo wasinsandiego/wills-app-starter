@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <script src="https://cdn.ravenjs.com/3.24.0/raven.min.js" crossorigin="anonymous"></script>
+  <title>SENTRY - HYFN8 Pacing Dashboard</title>
+  <link rel="stylesheet" href="static/app.css" />
+  <% if (process.env.SENTRY_DSN) { %>
+    <!-- Sentry Configuration -->
+    <script>
+      Raven.config('<%= process.env.SENTRY_DSN %>', {
+        release: '0.0.1',
+        environment: '<%= process.env.SENTRY_ENV %>',
+        captureUnhandledRejections: true,
+        // De-cluttering Sentry: https://docs.sentry.io/clients/javascript/tips/#decluttering-sentry
+        ignoreErrors: [
+          // Random plugins/extensions
+          'top.GLOBALS',
+          // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
+          'originalCreateNotification',
+          'canvas.contentDocument',
+          'MyApp_RemoveAllHighlights',
+          'http://tt.epicplay.com',
+          'Can\'t find variable: ZiteReader',
+          'jigsaw is not defined',
+          'ComboSearch is not defined',
+          'http://loading.retry.widdit.com/',
+          'atomicFindClose',
+          // Facebook borked
+          'fb_xd_fragment',
+          // ISP "optimizing" proxy - `Cache-Control: no-transform` seems to
+          // reduce this. (thanks @acdha)
+          // See http://stackoverflow.com/questions/4113268
+          'bmi_SafeAddOnload',
+          'EBCallBackMessageReceived',
+          // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
+          'conduitPage'
+        ],
+        ignoreUrls: [
+          // Facebook flakiness
+          /graph\.facebook\.com/i,
+          // Facebook blocked
+          /connect\.facebook\.net\/en_US\/all\.js/i,
+          // Woopra flakiness
+          /eatdifferent\.com\.woopra-ns\.com/i,
+          /static\.woopra\.com\/js\/woopra\.js/i,
+          // Chrome extensions
+          /extensions\//i,
+          /^chrome:\/\//i,
+          // Other plugins
+          /127\.0\.0\.1:4001\/isrunning/i,  // Cacaoweb
+          /webappstoolbarba\.texthelp\.com\//i,
+          /metrics\.itunes\.apple\.com\.edgesuite\.net\//i
+        ]
+      }).install()
+    </script>
+  <% } %>
+  <script src="static/app.js"></script>
+  <script>require('initialize')</script>
+  <script>
+    /*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","hyfn8.zendesk.com");/*]]>*/
+    window.zESettings = {
+      webWidget: {
+        offset: { vertical: '65px' },
+        position: {
+          horizontal: 'right',
+          vertical: 'top'
+        },
+        color: {
+          header: '#07A1BF'
+        }
+      }
+    }
+    zE(() => zE.hide())
+  </script>
+</head>
+<body>
+  <div id="app" style="height: 100%"></div>
+</body>

@@ -1,0 +1,6 @@
+function (env) {
+  return {
+    heydude: 'whatsup',
+    env: env.NODE_ENV
+  }
+}
