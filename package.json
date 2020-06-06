@@ -67,7 +67,7 @@
     "apollo-client": "^2.2.8",
     "apollo-link-context": "^1.0.8",
     "apollo-link-http": "^1.5.4",
-    "apollo-server-express": "^1.3.5",
+    "apollo-server-express": "^2.14.2",
     "axios": "^0.18.0",
     "babel-brunch": "~6.1.1",
     "babel-eslint": "^8.2.3",
