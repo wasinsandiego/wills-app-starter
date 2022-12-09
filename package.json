@@ -88,7 +88,7 @@
     "ejs": "^2.6.1",
     "emotion": "^9.1.2",
     "emotion-theming": "^9.1.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "facepaint": "^1.2.1",
     "graphql": "^14.0.0-rc.2",
     "graphql-tag": "^2.9.2",
